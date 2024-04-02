@@ -39,7 +39,7 @@ class UserApi {
                 return
             }
             if let authData = AuthDataResult {
-                var dict: [String: Any] = [
+                let dict: [String: Any] = [
                     UID: authData.user.uid,
                     EMAIL: authData.user.email ?? "",
                     USERNAME: username,
@@ -55,6 +55,18 @@ class UserApi {
                 StorageService.savePhoto(username: username, uid: authData.user.uid, data: imageData, metadata: metadata, StorageProfileRef: storageProfileRef, dict: dict) { onSuccess ()}  onError: {errorMessage in onError(errorMessage)}
                 
             }
+        }
+    }
+    func logOut(){
+        do{
+            try Auth.auth().signOut()
+        } catch{
+            ProgressHUD.failed(error.localizedDescription)
+            return
+        }
+        let scene = UIApplication.shared.connectedScenes.first
+        if let sd:  SceneDelegate =  (scene?.delegate as? SceneDelegate) {
+            sd.configureInitialViewController()
         }
     }
 }

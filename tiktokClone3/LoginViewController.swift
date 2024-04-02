@@ -36,7 +36,10 @@ class LoginViewController: UIViewController {
         self.view.endEditing(true)
         self.validateFields()
         self.Login {
- //           switch view
+            let scene = UIApplication.shared.connectedScenes.first
+            if let sd:  SceneDelegate =  (scene?.delegate as? SceneDelegate) {
+                sd.configureInitialViewController()
+            }
         } onError: { errorMessage in
             ProgressHUD.failed(errorMessage)
         }
@@ -47,7 +50,7 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController {
     func Login(onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void){
-        ProgressHUD.succeed()
+        ProgressHUD.succeed("Loading...")
         Api.user.Login(email: self.emailTextfield.text!, password: self.passwordTextfield.text!) {
             ProgressHUD.dismiss()
             onSuccess()

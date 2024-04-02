@@ -18,6 +18,9 @@ let USERNAME = "username"
 let PROFILE_IMAGE_URL = "profileImageUrl"
 let STATUS = "status"
 
+let IDENTIFIER_TABBAR = "TabbarVC"
+let IDENTIFIER_MAIN = "MainVC"
+
 class Ref {
     let dataBaseRoot = Database.database().reference()
     
