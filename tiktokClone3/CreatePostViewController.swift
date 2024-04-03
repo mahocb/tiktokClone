@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import AVFoundation
+
 
 class CreatePostViewController: UIViewController {
 
@@ -13,10 +15,36 @@ class CreatePostViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var captureButtonRingView: UIView!
     @IBOutlet weak var captureButton: UIButton!
+    @IBOutlet weak var flipCameraButton: UIButton!
+    @IBOutlet weak var flipCameraLabel: UILabel!
+    @IBOutlet weak var speedButton: UIButton!
+    @IBOutlet weak var beautyButton: UIButton!
+    @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var timerButton: UIButton!
+    @IBOutlet weak var flashButton: UIButton!
+    @IBOutlet weak var galleryButton: UIButton!
+    @IBOutlet weak var effectsButton: UIButton!
+    
+    @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var flashLabel: UILabel!
+    @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var filterLabel: UILabel!
+    @IBOutlet weak var beautyLabel: UILabel!
+    @IBOutlet weak var timeCounterLabel: UILabel!
+    @IBOutlet weak var soundsView: UIView!
+    
+    let photoFileOutput = AVCapturePhotoOutput()
+    let captureSession = AVCaptureSession()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if setupCaptureSession() {
+            DispatchQueue.global(qos: .background).async {
+                self.captureSession.startRunning()
+            }
+        }
         setupView()
        
     }
@@ -37,9 +65,86 @@ class CreatePostViewController: UIViewController {
         captureButtonRingView.layer.borderColor = UIColor(red: 254/255, green: 44/255, blue: 85/255, alpha: 0.5).cgColor
         captureButtonRingView.layer.borderWidth = 6
         captureButtonRingView.layer.cornerRadius = 85/2
+        
+        timeCounterLabel.backgroundColor = UIColor.black.withAlphaComponent(0.42)
+        timeCounterLabel.layer.cornerRadius = 15
+        timeCounterLabel.layer.borderColor = UIColor.white.cgColor
+        timeCounterLabel.layer.borderWidth = 1.8
+        timeCounterLabel.clipsToBounds = true
+        
+        soundsView.layer.cornerRadius = 12
+        
+        
+        
+        
+        
+        [self.captureButton,self.captureButtonRingView,self.cancelButton,self.flipCameraButton,self.flipCameraLabel,self.speedLabel,self.speedButton,self.beautyLabel,self.beautyButton,self.filterLabel,self.filterButton,self.timerLabel,self.timerButton,self.galleryButton,self.effectsButton,self.soundsView,self.timeCounterLabel].forEach { subView in
+            subView?.layer.zPosition = 1
+        }
+    }
+    func setupCaptureSession() -> Bool  {
+        captureSession.sessionPreset = AVCaptureSession.Preset.high
+        
+        // 1. setup inputs
+        if let captureVideoDevice = AVCaptureDevice.default(for: AVMediaType.video),
+           let captureAudioDevice =  AVCaptureDevice.default(for: AVMediaType.audio) {
+            do {
+                let inputVideo = try AVCaptureDeviceInput(device: captureVideoDevice)
+                let inputAudio = try AVCaptureDeviceInput(device: captureAudioDevice)
+                
+                if captureSession.canAddInput(inputVideo) {
+                    captureSession.addInput(inputVideo)
+                }
+                if captureSession.canAddInput(inputAudio) {
+                    captureSession.addInput(inputAudio)
+                }
+            } catch let error{
+             print("Could not  setup camera input:", error)
+                return false
+            }
+        }
+        // 2. setup input
+        if captureSession.canAddOutput(photoFileOutput){
+            captureSession.addOutput(photoFileOutput)
+        }
+        // 3. setup input
+    let previewLayer  = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.frame = view.frame
+        previewLayer.videoGravity = .resizeAspectFill
+        view.layer.addSublayer(previewLayer)
+        return true
     }
     
-
-   
+    @IBAction func flipButtonDidTapped(_ sender: Any) {
+        captureSession.beginConfiguration()
+        
+        let currentInput = captureSession.inputs.first as? AVCaptureDeviceInput
+        let newCameraDevice = currentInput?.device.position == .back ? getDeviceFront(position: .front) : getDeviceBack(position: .back)
+        
+        let newVideoInput  = try? AVCaptureDeviceInput(device: newCameraDevice!)
+        
+        if let inputs = captureSession.inputs as? [AVCaptureDeviceInput] {
+            for input in inputs {
+                captureSession.removeInput(input)
+            }
+        }
+        
+        if  captureSession.inputs.isEmpty {
+            captureSession.addInput(newVideoInput!)
+        }
+        captureSession.commitConfiguration()
+    }
+    
+    func getDeviceFront(position: AVCaptureDevice.Position) -> AVCaptureDevice?{
+        AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
+    }
+    func getDeviceBack(position: AVCaptureDevice.Position) -> AVCaptureDevice?{
+        AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
+    }
+    
+    @IBAction func handleDismiss(_ sender: Any) {
+        tabBarController?.selectedIndex = 0
+    }
+    
 
 }
