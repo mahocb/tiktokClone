@@ -35,6 +35,11 @@ class CreatePostViewController: UIViewController {
     
     let photoFileOutput = AVCapturePhotoOutput()
     let captureSession = AVCaptureSession()
+    let movieOutput = AVCaptureMovieFileOutput()
+    var activeInput: AVCaptureDeviceInput!
+    var outputURL : URL!
+    var currentCameraDevice: AVCaptureDevice?
+    var thumbnailImage: UIImage?
     
     
     override func viewDidLoad() {
@@ -59,6 +64,12 @@ class CreatePostViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+    
+    
+    @IBAction func captureButtonDidTapped(_ sender: Any) {
+        
+    }
+    
     func setupView(){
         captureButton.backgroundColor = UIColor(red: 254/255, green: 44/255, blue: 85/255, alpha: 1.0)
         captureButton.layer.cornerRadius =  68/2
@@ -94,10 +105,16 @@ class CreatePostViewController: UIViewController {
                 
                 if captureSession.canAddInput(inputVideo) {
                     captureSession.addInput(inputVideo)
+                    activeInput = inputVideo
                 }
                 if captureSession.canAddInput(inputAudio) {
                     captureSession.addInput(inputAudio)
                 }
+                
+                if captureSession.canAddOutput(movieOutput){
+                    captureSession.addOutput(movieOutput)
+                }
+                
             } catch let error{
              print("Could not  setup camera input:", error)
                 return false
@@ -131,7 +148,21 @@ class CreatePostViewController: UIViewController {
         
         if  captureSession.inputs.isEmpty {
             captureSession.addInput(newVideoInput!)
+            activeInput = newVideoInput
         }
+        
+        if let microphone = AVCaptureDevice.default(for: .audio) {
+            do {
+                let micInput = try AVCaptureDeviceInput(device: microphone)
+                if captureSession.canAddInput(micInput) {
+                    captureSession.addInput(micInput)
+                }
+            } catch let micInputError {
+                print("Error setting device audio input\(micInputError)")
+            }
+            
+        }
+        
         captureSession.commitConfiguration()
     }
     
@@ -147,4 +178,45 @@ class CreatePostViewController: UIViewController {
     }
     
 
+}
+
+extension CreatePostViewController: AVCaptureFileOutputRecordingDelegate {
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: (any Error)?) {
+        if error != nil {
+            print("Error recording  movie: \(error?.localizedDescription ?? "")")
+        } else {
+            let urlOfVideoRecorded = outputURL! as URL
+            
+            guard let generatedThumbnailImage = generateVideoThumbnail(withfile: urlOfVideoRecorded) else {return}
+            
+            if currentCameraDevice?.position == .front {
+                thumbnailImage = didTakePicture(generatedThumbnailImage, to: .upMirrored)
+            } else {
+                thumbnailImage = generatedThumbnailImage
+            }
+             
+        }
+    }
+    
+    func didTakePicture(_ picture: UIImage, to orientation: UIImage.Orientation) -> UIImage {
+        let flippedImage = UIImage(cgImage: picture.cgImage!, scale: picture.scale, orientation: orientation)
+        return flippedImage
+    }
+    
+    func generateVideoThumbnail(withfile videoUrl: URL) -> UIImage? {
+        let  asset = AVAsset(url: videoUrl)
+        
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.appliesPreferredTrackTransform = true
+        
+        do {
+            let cmTime = CMTimeMake(value: 1, timescale: 60)
+            let thumbnailCGImage = try  imageGenerator.copyCGImage(at: cmTime, actualTime: nil )
+            return UIImage(cgImage: thumbnailCGImage)
+        } catch let error{
+            print(error)
+        }
+        return nil
+    }
+    
 }
