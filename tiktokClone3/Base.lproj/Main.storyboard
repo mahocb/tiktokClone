@@ -397,6 +397,25 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="effect-3"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oXu-gY-XWI">
+                                <rect key="frame" x="319" y="712" width="45" height="35"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="UFE-p9-Ezw"/>
+                                    <constraint firstAttribute="width" constant="45" id="jqb-qL-Qhj"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="done-2"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofi-hi-uHG">
+                                <rect key="frame" x="264" y="712" width="45" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="Iir-aM-rWI"/>
+                                    <constraint firstAttribute="width" constant="45" id="uk9-G0-VgP"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="remove-2"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dTC-Va-vOG"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
@@ -412,6 +431,8 @@
                             <constraint firstItem="F8h-74-B8t" firstAttribute="centerX" secondItem="YPp-kS-ges" secondAttribute="centerX" id="J7I-6L-7rd"/>
                             <constraint firstItem="3vd-JC-FSX" firstAttribute="top" secondItem="F8h-74-B8t" secondAttribute="bottom" constant="12" id="Jhq-e1-P4F"/>
                             <constraint firstItem="lhT-cy-5Bl" firstAttribute="centerX" secondItem="oWX-xn-Sd3" secondAttribute="centerX" id="LAc-6d-1cy"/>
+                            <constraint firstItem="oXu-gY-XWI" firstAttribute="leading" secondItem="HHz-11-4us" secondAttribute="trailing" constant="80" id="MR4-wM-124"/>
+                            <constraint firstItem="oXu-gY-XWI" firstAttribute="leading" secondItem="ofi-hi-uHG" secondAttribute="trailing" constant="10" id="N5d-RN-cnp"/>
                             <constraint firstItem="n0t-Zf-p8K" firstAttribute="top" secondItem="1oc-NY-ZuP" secondAttribute="bottom" constant="-5" id="Oew-JC-PMX"/>
                             <constraint firstItem="f9c-vg-hoc" firstAttribute="leading" secondItem="HHz-11-4us" secondAttribute="trailing" constant="70" id="Pda-Ye-rwE"/>
                             <constraint firstItem="oWX-xn-Sd3" firstAttribute="top" secondItem="ihp-8W-fc1" secondAttribute="bottom" constant="12" id="ReB-uB-SVo"/>
@@ -431,8 +452,10 @@
                             <constraint firstItem="1oc-NY-ZuP" firstAttribute="top" secondItem="dTC-Va-vOG" secondAttribute="top" constant="30" id="iMX-CZ-RFz"/>
                             <constraint firstItem="YPp-kS-ges" firstAttribute="top" secondItem="n0t-Zf-p8K" secondAttribute="bottom" constant="12" id="jY5-ud-V9n"/>
                             <constraint firstAttribute="bottom" secondItem="HHz-11-4us" secondAttribute="bottom" constant="80" id="nd9-xy-NcG"/>
+                            <constraint firstItem="ofi-hi-uHG" firstAttribute="centerY" secondItem="oXu-gY-XWI" secondAttribute="centerY" id="nrW-59-hKz"/>
                             <constraint firstItem="HHz-11-4us" firstAttribute="leading" secondItem="x0E-vo-Ozw" secondAttribute="trailing" constant="70" id="ry1-f0-a4n"/>
                             <constraint firstItem="YPp-kS-ges" firstAttribute="centerX" secondItem="1oc-NY-ZuP" secondAttribute="centerX" id="tUw-ZP-ydr"/>
+                            <constraint firstItem="oXu-gY-XWI" firstAttribute="centerY" secondItem="cds-BF-oF1" secondAttribute="centerY" id="ucL-NF-ipl"/>
                             <constraint firstItem="x0E-vo-Ozw" firstAttribute="centerY" secondItem="cds-BF-oF1" secondAttribute="centerY" id="wfL-1z-2da"/>
                             <constraint firstItem="ihp-8W-fc1" firstAttribute="top" secondItem="3vd-JC-FSX" secondAttribute="bottom" constant="-5" id="xZn-IO-iWF"/>
                             <constraint firstItem="fgD-eR-zId" firstAttribute="centerX" secondItem="jxz-4I-auD" secondAttribute="centerX" id="yQ4-uf-ZmM"/>
@@ -446,6 +469,7 @@
                         <outlet property="cancelButton" destination="sQg-X6-quq" id="wet-wy-lvd"/>
                         <outlet property="captureButton" destination="cds-BF-oF1" id="AnO-bD-e3u"/>
                         <outlet property="captureButtonRingView" destination="HHz-11-4us" id="MAn-EP-ECW"/>
+                        <outlet property="discardButton" destination="ofi-hi-uHG" id="FJ6-az-L7C"/>
                         <outlet property="effectsButton" destination="x0E-vo-Ozw" id="4Cz-1K-ChX"/>
                         <outlet property="filterButton" destination="oWX-xn-Sd3" id="djZ-fE-EAB"/>
                         <outlet property="filterLabel" destination="37k-vs-Yxa" id="yyc-VG-vGS"/>
@@ -454,6 +478,7 @@
                         <outlet property="flipCameraButton" destination="1oc-NY-ZuP" id="pAv-G1-HOF"/>
                         <outlet property="flipCameraLabel" destination="n0t-Zf-p8K" id="G6J-AE-MQc"/>
                         <outlet property="galleryButton" destination="f9c-vg-hoc" id="jpX-rg-v0H"/>
+                        <outlet property="saveButton" destination="oXu-gY-XWI" id="XZe-jf-yOn"/>
                         <outlet property="soundsView" destination="CEp-Kd-4lS" id="iQc-U6-Tf2"/>
                         <outlet property="speedButton" destination="YPp-kS-ges" id="GsB-vv-vHj"/>
                         <outlet property="speedLabel" destination="F8h-74-B8t" id="w9k-D4-6kV"/>
@@ -787,6 +812,7 @@
     <resources>
         <image name="352332_explore_icon (1)" width="24" height="24"/>
         <image name="IMG_7335" width="956" height="698"/>
+        <image name="done-2" width="24" height="24"/>
         <image name="effect-3" width="32" height="32"/>
         <image name="effects" width="24" height="24"/>
         <image name="flash" width="24" height="24"/>
@@ -796,6 +822,7 @@
         <image name="home" width="24" height="24"/>
         <image name="inbox" width="24" height="24"/>
         <image name="music.note" catalog="system" width="96" height="128"/>
+        <image name="remove-2" width="32" height="32"/>
         <image name="speedometer" width="24" height="24"/>
         <image name="square-plus" width="24" height="24"/>
         <image name="stopwatch" width="24" height="24"/>
