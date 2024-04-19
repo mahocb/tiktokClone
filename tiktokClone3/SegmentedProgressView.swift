@@ -1,6 +1,6 @@
 //
 //  SegmentedProgressView.swift
-//  tiktokClone3
+//  TikTokClone
 //
 //  Created by Mahmut Başcı on 19.04.2024.
 //
@@ -13,8 +13,7 @@ class SegmentedProgressView: UIView {
         self.width = width
         super.init(frame: CGRect.zero)
         handleDrawPaths()
-        
-        
+       
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +32,6 @@ class SegmentedProgressView: UIView {
         shapeLayer.strokeEnd = 0
         shapeLayer.lineCap = .round
         return shapeLayer
-        
     }()
     
     fileprivate let trackLayer: CAShapeLayer = {
@@ -43,36 +41,42 @@ class SegmentedProgressView: UIView {
         trackerLayer.strokeEnd = 1
         trackerLayer.lineCap = .round
         return trackerLayer
+        
     }()
     
-    fileprivate func handleDrawPaths(){
+    fileprivate func handleDrawPaths() {
         aPath.move(to: CGPoint(x: 0.0, y: 0.0))
         aPath.addLine(to: CGPoint(x: width, y: 0.0))
         aPath.move(to: CGPoint(x: 0.0, y: 0.0))
         aPath.close()
         handleSetupTrackLayer()
         handleSetupShapeLayer()
-        
     }
-    fileprivate func handleSetupTrackLayer(){
+    
+    fileprivate func handleSetupTrackLayer() {
         trackLayer.path = aPath.cgPath
         layer.addSublayer(trackLayer)
     }
     
-    fileprivate func handleSetupShapeLayer(){
+    fileprivate func handleSetupShapeLayer() {
         shapeLayer.path = aPath.cgPath
         layer.addSublayer(shapeLayer)
     }
-    func setProgress(_ progress: CGFloat){
+    
+    func setProgress(_ progress: CGFloat) {
         shapeLayer.strokeEnd = progress
     }
     
-    func pauseProgress(){
+    func pauseProgress() {
         let newSegment = handleCreateSegment()
         addSubview(newSegment)
         newSegment.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -3).isActive = true
         segments.append(newSegment)
         segmentPoints.append(shapeLayer.strokeEnd)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.handlePositionSegment(newSegment: newSegment)
+        }
+        
     }
     
     func handleCreateSegment() -> UIView {
@@ -82,17 +86,27 @@ class SegmentedProgressView: UIView {
         view.heightAnchor.constraint(equalToConstant: 6).isActive = true
         return view
     }
-    func handlePositionSegment(newSegment: UIView){
+    
+    func handlePositionSegment(newSegment: UIView) {
         let positionPath = CGPoint(x: shapeLayer.strokeEnd * frame.width, y: 0)
         newSegment.constraintToLeft(paddingLeft: positionPath.x)
         newSegment.backgroundColor = UIColor.white
         print("segments:", segments.count)
+        
+    }
+    func handleRemoveLastSegment() {
+        segments.last?.removeFromSuperview()
+        segmentPoints.removeLast()
+        segments.removeLast()
+        shapeLayer.strokeEnd = segmentPoints.last ?? 0
+        print("segments:", segments.count)
     }
 }
-extension UIView{
+extension UIView {
     func constraintToLeft(paddingLeft: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
         if let left = superview?.leftAnchor {
-            self.leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true        }
+            self.leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
+        }
     }
 }
