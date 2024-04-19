@@ -44,6 +44,16 @@ class CreatePostViewController: UIViewController {
     var thumbnailImage: UIImage?
     var recordedClips = [VideoClips]()
     var isRecording = false
+    var videoDurationOfLastClip = 0
+    var recordingTimer: Timer?
+    var currentMaxRecordingDuration: Int = 15 {
+        didSet{
+            timeCounterLabel.text = "\(currentMaxRecordingDuration)s}"
+        }
+    }
+    var total_RecordedTime_In_Secs = 0
+    var toral_RecordedTime_In_Minutes = 0
+    lazy var segmentedProgressView = SegmentedProgressView(width: view.frame.width - 17.5)
     
     
     override func viewDidLoad() {
@@ -71,6 +81,10 @@ class CreatePostViewController: UIViewController {
     
     
     @IBAction func captureButtonDidTapped(_ sender: Any) {
+        handleDidTapRecord()
+    }
+    
+    func handleDidTapRecord(){
         if movieOutput.isRecording == false {
             startRecording()
         } else {
@@ -96,6 +110,13 @@ class CreatePostViewController: UIViewController {
         saveButton.backgroundColor = UIColor(red: 254/255, green: 44/255, blue: 85/255, alpha: 1.0)
         saveButton.alpha = 0
         discardButton.alpha = 0
+        
+        view.addSubview(segmentedProgressView)
+        segmentedProgressView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
+        segmentedProgressView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        segmentedProgressView.widthAnchor.constraint(equalToConstant: view.frame.width - 17.5).isActive = true
+        segmentedProgressView.heightAnchor.constraint(equalToConstant: 6).isActive = true
+        segmentedProgressView.translatesAutoresizingMaskIntoConstraints = false
         
         
         
@@ -224,6 +245,8 @@ class CreatePostViewController: UIViewController {
         if movieOutput.isRecording == true {
             movieOutput.stopRecording()
             handleAnimateRecordButton()
+            stopTimer()
+            segmentedProgressView.pauseProgress()
             print("STOP THE COUNT")
         }
     }
@@ -236,12 +259,13 @@ class CreatePostViewController: UIViewController {
             guard let self = self else {return}
             if self.isRecording == false {
                 self.captureButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                self.captureButton.layer.cornerRadius = 5
                 self.captureButtonRingView.transform = CGAffineTransform(scaleX: 1.7, y: 1.7)
                 
                 self.saveButton.alpha = 0
                 self.discardButton.alpha = 0
                 
-                [self.flipCameraButton,self.flipCameraLabel,self.speedLabel,self.speedButton,self.beautyLabel,self.beautyButton,self.filterLabel,self.filterButton,self.timerLabel,self.timerButton,self.galleryButton,self.effectsButton,self.soundsView,self.timeCounterLabel].forEach { subView in
+                [self.galleryButton,self.effectsButton,self.soundsView].forEach { subView in
                     subView?.isHidden = true
                 }
             } else{
@@ -301,6 +325,7 @@ extension CreatePostViewController: AVCaptureFileOutputRecordingDelegate {
         let newRecordedClip = VideoClips(videoUrl: fileURL, cameraPosition: currentCameraDevice?.position)
         recordedClips.append(newRecordedClip)
         print("recordedClips:", recordedClips.count)
+        startTimer()
     }
     
     func didTakePicture(_ picture: UIImage, to orientation: UIImage.Orientation) -> UIImage {
@@ -324,4 +349,36 @@ extension CreatePostViewController: AVCaptureFileOutputRecordingDelegate {
         return nil
     }
     
+}
+
+//MARK: - RECORDING TIMER
+
+extension CreatePostViewController {
+    
+    func startTimer(){
+        videoDurationOfLastClip = 0
+        stopTimer()
+        recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: {[weak self] _ in
+            self?.timerTick()
+        })
+    }
+    func timerTick(){
+        total_RecordedTime_In_Secs  += 1
+        videoDurationOfLastClip += 1
+        
+        let time_limit = currentMaxRecordingDuration * 10
+        if total_RecordedTime_In_Secs == time_limit {
+            handleDidTapRecord()
+        }
+        let startTime = 0
+        let trimmedTime: Int = Int(currentMaxRecordingDuration) - startTime
+        let positiveOrzero = max(total_RecordedTime_In_Secs, 0)
+        let progress = Float(positiveOrzero) / Float(trimmedTime) / 10
+        segmentedProgressView.setProgress(CGFloat(progress))
+        let countDownSec: Int = Int(currentMaxRecordingDuration) - total_RecordedTime_In_Secs / 10
+        timeCounterLabel.text = "\(countDownSec)s"
+    }
+    func stopTimer() {
+        recordingTimer?.invalidate()
+    }
 }

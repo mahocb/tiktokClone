@@ -345,7 +345,7 @@
                                     <constraint firstAttribute="width" constant="30" id="Zes-bi-3F1"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CEp-Kd-4lS">
@@ -418,7 +418,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dTC-Va-vOG"/>
-                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="PaC-la-umY" firstAttribute="top" secondItem="lhT-cy-5Bl" secondAttribute="bottom" constant="-5" id="0wz-Ai-mlp"/>
                             <constraint firstItem="5Ue-2E-nfc" firstAttribute="top" secondItem="sQg-X6-quq" secondAttribute="bottom" constant="15" id="1VZ-iB-8Jv"/>
@@ -849,9 +849,6 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
