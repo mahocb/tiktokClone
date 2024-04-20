@@ -52,7 +52,7 @@ class CreatePostViewController: UIViewController {
         }
     }
     var total_RecordedTime_In_Secs = 0
-    var toral_RecordedTime_In_Minutes = 0
+    var total_RecordedTime_In_Minutes = 0
     lazy var segmentedProgressView = SegmentedProgressView(width: view.frame.width - 17.5)
     
     
@@ -250,6 +250,59 @@ class CreatePostViewController: UIViewController {
             print("STOP THE COUNT")
         }
     }
+    
+    @IBAction func discardButtonDidTapped(_ sender: Any) {
+        let alertVC = UIAlertController(title: "Discard the last clip?", message: nil, preferredStyle: .alert)
+        let discardAction = UIAlertAction(title: "Discard", style: .default) { [weak self] (_) in
+            self?.handleDiscardLastRecordedClip()
+        }
+        let keepAction = UIAlertAction(title: "Keep", style: .cancel) { (_) in
+            
+        }
+        
+        alertVC.addAction(discardAction)
+        alertVC.addAction(keepAction)
+        present(alertVC, animated: true)
+    }
+    
+    func handleDiscardLastRecordedClip() {
+        print("discard")
+        outputURL = nil
+        thumbnailImage = nil
+        recordedClips.removeLast()
+        handleResetAllVisibilityToIdendity()
+        handleSetNewOutputUrlAndThumbnailImage()
+        segmentedProgressView.handleRemoveLastSegment()
+        
+        
+        if recordedClips.isEmpty == true {
+            self.handleResetTimersAndProgressViewToZero()
+        } else if recordedClips.isEmpty == false {
+            self.handleCalculateDurationLeft()
+        }
+    }
+     
+    func handleCalculateDurationLeft() {
+        let timeToDiscard = videoDurationOfLastClip
+        let currentCombineTime = total_RecordedTime_In_Secs
+        let newVideoDuration = currentCombineTime - timeToDiscard
+        total_RecordedTime_In_Secs = newVideoDuration
+        let countDownSec: Int = Int(currentMaxRecordingDuration) - total_RecordedTime_In_Secs / 10
+        timeCounterLabel.text = "\(countDownSec)"
+    }
+    
+    func handleSetNewOutputUrlAndThumbnailImage(){
+        outputURL = recordedClips.last?.videoUrl
+        let  currentUrl: URL? = outputURL
+        guard let currentUrlUnwrapped = currentUrl else {return}
+        guard let generatedThumbnailImage = generateVideoThumbnail(withfile: currentUrlUnwrapped) else {return}
+        if currentCameraDevice?.position == .front{
+            thumbnailImage = didTakePicture(generatedThumbnailImage, to: .upMirrored)
+        } else {
+            thumbnailImage = generatedThumbnailImage
+        }
+    }
+    
     func handleAnimateRecordButton() {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
             [weak self] in
@@ -377,6 +430,16 @@ extension CreatePostViewController {
         segmentedProgressView.setProgress(CGFloat(progress))
         let countDownSec: Int = Int(currentMaxRecordingDuration) - total_RecordedTime_In_Secs / 10
         timeCounterLabel.text = "\(countDownSec)s"
+    }
+    
+    func handleResetTimersAndProgressViewToZero() {
+        total_RecordedTime_In_Secs = 0
+        total_RecordedTime_In_Minutes = 0
+        videoDurationOfLastClip = 0
+        stopTimer()
+        segmentedProgressView.setProgress(0)
+        timeCounterLabel.text = "\(currentMaxRecordingDuration)"
+        
     }
     func stopTimer() {
         recordingTimer?.invalidate()

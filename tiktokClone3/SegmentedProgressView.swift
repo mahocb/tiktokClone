@@ -101,6 +101,7 @@ class SegmentedProgressView: UIView {
         shapeLayer.strokeEnd = segmentPoints.last ?? 0
         print("segments:", segments.count)
     }
+    
 }
 extension UIView {
     func constraintToLeft(paddingLeft: CGFloat) {
