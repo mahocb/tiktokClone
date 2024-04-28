@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		350270702BB59D1F000892D3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3502706F2BB59D1E000892D3 /* ProfileViewController.swift */; };
+		351ED2EA2BDF061C00AFE069 /* PreviewCapturedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351ED2E92BDF061C00AFE069 /* PreviewCapturedViewController.swift */; };
 		3550D0622BD295960073E4C0 /* SegmentedProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3550D0612BD295960073E4C0 /* SegmentedProgressView.swift */; };
 		35575F892BAADE8000B33912 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 35575F882BAADE8000B33912 /* ProgressHUD */; };
 		35575F8B2BAAE51B00B33912 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35575F8A2BAAE51B00B33912 /* Api.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		3502706F2BB59D1E000892D3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		351ED2E92BDF061C00AFE069 /* PreviewCapturedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCapturedViewController.swift; sourceTree = "<group>"; };
 		3550D0612BD295960073E4C0 /* SegmentedProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedProgressView.swift; sourceTree = "<group>"; };
 		35575F8A2BAAE51B00B33912 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		35575F8C2BAAE55000B33912 /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				3502706F2BB59D1E000892D3 /* ProfileViewController.swift */,
 				35DCACD22BBC3B8B000B80FB /* CreatePostViewController.swift */,
 				3550D0612BD295960073E4C0 /* SegmentedProgressView.swift */,
+				351ED2E92BDF061C00AFE069 /* PreviewCapturedViewController.swift */,
 				35575F8A2BAAE51B00B33912 /* Api.swift */,
 				3584F1B92BC06D5900D7CA7F /* VideoClips.swift */,
 				35575F8C2BAAE55000B33912 /* UserApi.swift */,
@@ -230,6 +233,7 @@
 				355AF7872BA8B5C400E1F401 /* ViewController.swift in Sources */,
 				350270702BB59D1F000892D3 /* ProfileViewController.swift in Sources */,
 				355AF7832BA8B5C400E1F401 /* AppDelegate.swift in Sources */,
+				351ED2EA2BDF061C00AFE069 /* PreviewCapturedViewController.swift in Sources */,
 				355AF7972BA8C8C300E1F401 /* SignUpViewController.swift in Sources */,
 				355AF79B2BA9A9C500E1F401 /* LoginViewController.swift in Sources */,
 				35575F8F2BAB27EE00B33912 /* StorageService.swift in Sources */,

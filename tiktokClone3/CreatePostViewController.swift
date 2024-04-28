@@ -251,6 +251,23 @@ class CreatePostViewController: UIViewController {
         }
     }
     
+    
+    @IBAction func saveButtonDidTapped(_ sender: Any) {
+        let previewVC = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(identifier:  "PreviewCapturedViewController", creator: {
+            coder -> PreviewCapturedViewController?  in
+            PreviewCapturedViewController(coder: coder, recordedClips: self.recordedClips)
+        })
+        previewVC.viewWillDenitRestartVideoSession = {[weak self] in
+            guard let self = self else {return}
+            if self.setupCaptureSession() {
+                DispatchQueue.global(qos: .background).async {
+                    self.captureSession.startRunning()
+                }
+            }
+        }
+        navigationController?.pushViewController(previewVC, animated: true)
+    }
+    
     @IBAction func discardButtonDidTapped(_ sender: Any) {
         let alertVC = UIAlertController(title: "Discard the last clip?", message: nil, preferredStyle: .alert)
         let discardAction = UIAlertAction(title: "Discard", style: .default) { [weak self] (_) in

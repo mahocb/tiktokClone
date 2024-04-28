@@ -406,6 +406,9 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="done-2"/>
+                                <connections>
+                                    <action selector="saveButtonDidTapped:" destination="R7j-J9-tl1" eventType="touchUpInside" id="KHy-TF-Eyy"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofi-hi-uHG">
                                 <rect key="frame" x="264" y="712" width="45" height="35"/>
@@ -493,6 +496,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E3e-FX-DjA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1793.1297709923663" y="1939.4366197183099"/>
+        </scene>
+        <!--Preview Captured View Controller-->
+        <scene sceneID="kBN-Qx-YpV">
+            <objects>
+                <viewController storyboardIdentifier="PreviewCapturedViewController" id="qzy-nb-bkD" customClass="PreviewCapturedViewController" customModule="tiktokClone3" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VGs-FP-RWx">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2uj-Xs-fNm">
+                                <rect key="frame" x="159" y="408.66666666666669" width="75" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="WSq-xZ-FBx"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2uj-Xs-fNm" firstAttribute="centerY" secondItem="VGs-FP-RWx" secondAttribute="centerY" id="8Kx-xP-1JU"/>
+                            <constraint firstItem="2uj-Xs-fNm" firstAttribute="centerX" secondItem="VGs-FP-RWx" secondAttribute="centerX" id="dZL-jt-O9A"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qt8-J9-78k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2626" y="1952"/>
         </scene>
         <!--Home-->
         <scene sceneID="kCP-Bz-WrB">
@@ -824,14 +853,14 @@
         <image name="hair-mask-2" width="24" height="24"/>
         <image name="home" width="24" height="24"/>
         <image name="inbox" width="24" height="24"/>
-        <image name="music.note" catalog="system" width="96" height="128"/>
+        <image name="music.note" catalog="system" width="32" height="32"/>
         <image name="remove-2" width="32" height="32"/>
         <image name="speedometer" width="24" height="24"/>
         <image name="square-plus" width="24" height="24"/>
         <image name="stopwatch" width="24" height="24"/>
         <image name="tiktokpng" width="2000" height="1125"/>
         <image name="user" width="24" height="24"/>
-        <image name="xmark" catalog="system" width="128" height="113"/>
+        <image name="xmark" catalog="system" width="32" height="32"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -839,19 +868,19 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
