@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		350270702BB59D1F000892D3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3502706F2BB59D1E000892D3 /* ProfileViewController.swift */; };
 		351ED2EA2BDF061C00AFE069 /* PreviewCapturedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351ED2E92BDF061C00AFE069 /* PreviewCapturedViewController.swift */; };
+		353D01A12BE6783400BC5A44 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353D01A02BE6783400BC5A44 /* HomeViewController.swift */; };
+		353D01A32BE6786000BC5A44 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353D01A22BE6786000BC5A44 /* HomeCollectionViewCell.swift */; };
 		3550D0622BD295960073E4C0 /* SegmentedProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3550D0612BD295960073E4C0 /* SegmentedProgressView.swift */; };
 		35575F892BAADE8000B33912 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 35575F882BAADE8000B33912 /* ProgressHUD */; };
 		35575F8B2BAAE51B00B33912 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35575F8A2BAAE51B00B33912 /* Api.swift */; };
@@ -43,6 +45,8 @@
 /* Begin PBXFileReference section */
 		3502706F2BB59D1E000892D3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		351ED2E92BDF061C00AFE069 /* PreviewCapturedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCapturedViewController.swift; sourceTree = "<group>"; };
+		353D01A02BE6783400BC5A44 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		353D01A22BE6786000BC5A44 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		3550D0612BD295960073E4C0 /* SegmentedProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedProgressView.swift; sourceTree = "<group>"; };
 		35575F8A2BAAE51B00B33912 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		35575F8C2BAAE55000B33912 /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 				351ED2E92BDF061C00AFE069 /* PreviewCapturedViewController.swift */,
 				35575F8A2BAAE51B00B33912 /* Api.swift */,
 				3584F1B92BC06D5900D7CA7F /* VideoClips.swift */,
+				353D01A02BE6783400BC5A44 /* HomeViewController.swift */,
+				353D01A22BE6786000BC5A44 /* HomeCollectionViewCell.swift */,
 				35575F8C2BAAE55000B33912 /* UserApi.swift */,
 				35575F8E2BAB27EE00B33912 /* StorageService.swift */,
 				35575F902BAD820100B33912 /* Ref.swift */,
@@ -233,7 +239,9 @@
 				355AF7872BA8B5C400E1F401 /* ViewController.swift in Sources */,
 				350270702BB59D1F000892D3 /* ProfileViewController.swift in Sources */,
 				355AF7832BA8B5C400E1F401 /* AppDelegate.swift in Sources */,
+				353D01A12BE6783400BC5A44 /* HomeViewController.swift in Sources */,
 				351ED2EA2BDF061C00AFE069 /* PreviewCapturedViewController.swift in Sources */,
+				353D01A32BE6786000BC5A44 /* HomeCollectionViewCell.swift in Sources */,
 				355AF7972BA8C8C300E1F401 /* SignUpViewController.swift in Sources */,
 				355AF79B2BA9A9C500E1F401 /* LoginViewController.swift in Sources */,
 				35575F8F2BAB27EE00B33912 /* StorageService.swift in Sources */,
@@ -396,6 +404,8 @@
 				DEVELOPMENT_TEAM = W3DZ4767PF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = tiktokClone3/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "for camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "for mic";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -407,7 +417,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mahocb.tiktokClone3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mahocb.tiktokClone33;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -425,6 +435,8 @@
 				DEVELOPMENT_TEAM = W3DZ4767PF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = tiktokClone3/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "for camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "for mic";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -436,7 +448,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mahocb.tiktokClone3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mahocb.tiktokClone33;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
